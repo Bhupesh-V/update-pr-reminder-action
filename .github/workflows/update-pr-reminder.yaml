@@ -27,5 +27,5 @@ jobs:
             pr_id=$(basename "$(echo "$all_open_prs" | jq .["$c"].number)")
             author=$(echo "$all_open_prs" | jq .["$c"].author.login | tr -d '"')
             echo "Author for PR $pr_id is $author"
-            gh pr comment $pr_id --body "Hey @$author 👋🏽 friendly reminder to update your PR/branch because there was a recent merge ($(git rev-parse HEAD)) to the base branch"
+            gh pr comment $pr_id --body "Hey @$author 👋🏽 friendly reminder to update your PR/branch because there was a recent commit ($(git rev-parse HEAD)) to the base branch"
           done
