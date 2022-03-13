@@ -15,11 +15,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Get current branch
+        id: current_branch
         run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
       - name: Add comment to remind authors
         shell: bash
         run: |
-          all_open_prs=$(gh pr list --base ${{ steps.vars.outputs.short_ref }} --json author,number)
+          all_open_prs=$(gh pr list --base ${{ steps.current_branch.outputs.short_ref }} --json author,number)
           prs_count=$(echo "$all_open_prs" | jq length)
           echo "There are $prs_count currently open"
           for (( c=0; c<$prs_count; c++ )); do
