@@ -2,6 +2,10 @@
 
 This repository demos the github action workflow to automatically remind pull request authors to update their branch as soon as there is a new commit (or merge) in the base branch
 
+### Checkout [this pull request for demo](https://github.com/Bhupesh-V/update-pr-reminder-demo/pull/1)
+
+### Workflow
+
 ```yaml
 name: PR Update Reminder
 on:
