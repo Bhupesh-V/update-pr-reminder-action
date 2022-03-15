@@ -7,5 +7,5 @@ jobs:
     runs-on: ubuntu-latest
     name: Update PR Reminder Test
     steps:
-      - name: Get Pokemon name
-        uses: Bhupesh-V/update-pr-reminder-demo@main
+      - uses: actions/checkout@v2
+      - uses: Bhupesh-V/update-pr-reminder-demo@main
