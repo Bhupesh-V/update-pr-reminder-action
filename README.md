@@ -1,41 +1,40 @@
-# update-pr-reminder-demo
+<p align="center">
+  <h1 align="center">Update PR Reminder Action</h1>
+  <p align="center">
+  <blockquote>A github action to automatically remind pull request authors to update their branch as soon as there is a new commit (or merge) in the base branch</blockquote>
+  </p>
+</p>
 
-This repository demos the github action workflow to automatically remind pull request authors to update their branch as soon as there is a new commit (or merge) in the base branch
+[![PR Update Reminder](https://github.com/Bhupesh-V/update-pr-reminder-action/actions/workflows/self-test.yaml/badge.svg?branch=main)](https://github.com/Bhupesh-V/update-pr-reminder-action/actions/workflows/self-test.yaml)
+<a href="https://twitter.com/bhupeshimself">
+  <img alt="Twitter: Bhupesh Varshney" src="https://img.shields.io/twitter/follow/bhupeshimself.svg?style=social" target="_blank" />
+</a>
 
-### Checkout [this pull request for demo](https://github.com/Bhupesh-V/update-pr-reminder-demo/pull/1)
+## ✨ Demo
 
-### Workflow
+![update-pr-reminder-action-demo](https://user-images.githubusercontent.com/34342551/158306923-519008b8-16ab-4117-a597-2b678ebedabd.png)
+
+#### Checkout [this pull request for demo](https://github.com/Bhupesh-V/update-pr-reminder-action/pull/1)
+
+## ❓ Usage
 
 ```yaml
 name: PR Update Reminder
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
       - dev
-     
+
 env:
+  # make sure to set this as env
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  pr_update:
+  remind_authors:
     runs-on: ubuntu-latest
+    name: Update PR Reminder Test
     steps:
       - uses: actions/checkout@v2
-      - name: Get current branch
-        id: current_branch
-        run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
-      - name: Add comment to remind authors
-        shell: bash
-        run: |
-          all_open_prs=$(gh pr list --base ${{ steps.current_branch.outputs.short_ref }} --json author,number)
-          prs_count=$(echo "$all_open_prs" | jq length)
-          echo "There are $prs_count currently open"
-          for (( c=0; c<$prs_count; c++ )); do
-            pr_id=$(basename "$(echo "$all_open_prs" | jq .["$c"].number)")
-            author=$(echo "$all_open_prs" | jq .["$c"].author.login | tr -d '"')
-            echo "Author for PR $pr_id is $author"
-            gh pr comment $pr_id --body "Hey @$author 👋🏽 friendly reminder to update your PR/branch because there was a recent commit ($(git rev-parse HEAD)) to the base branch"
-          done
+      - uses: Bhupesh-V/update-pr-reminder-action@main
  ```
