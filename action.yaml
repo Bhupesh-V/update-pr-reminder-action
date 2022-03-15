@@ -1,0 +1,7 @@
+# action.yaml
+name: 'Update PR Reminder Action'
+description: 'A github action workflow to automatically remind pull request authors to update their branch as soon as there is a new commit in the base branch'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
