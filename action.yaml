@@ -1,6 +1,6 @@
 # action.yaml
 name: 'Update PR Reminder Action'
-description: 'A github action workflow to automatically remind pull request authors to update their branch as soon as there is a new commit in the base branch'
+description: 'A github action to automatically remind PR authors to update their branch when there is a new commit in the base branch'
 author: "Bhupesh Varshney"
 
 runs:
