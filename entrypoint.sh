@@ -3,8 +3,9 @@
 # echo "::set-output name=short_ref::${GITHUB_REF#refs/*/}"
 
 all_open_prs=$(gh pr list --base "${GITHUB_REF#refs/*/}" --json author,number)
+printf "%s\n" "PRs with base ${GITHUB_REF#refs/*/}: $all_open_prs"
 prs_count=$(echo "$all_open_prs" | jq length)
-echo "There are $prs_count currently open"
+printf "%s\n" "There are currently $prs_count open PRs"
 
 for (( c=0; c<$prs_count; c++ )); do
     pr_id=$(echo "$all_open_prs" | jq .["$c"].number)
